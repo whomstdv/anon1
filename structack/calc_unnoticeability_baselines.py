@@ -7,9 +7,9 @@ from deeprobust.graph.utils import *
 from deeprobust.graph.data import Dataset
 from deeprobust.graph.global_attack import DICE, Random, Metattack, PGDAttack, MinMax
 from structack.structack import StructackBase, build_custom
-from structack.structack import StructackDegreeRandomLinking, StructackDegree, StructackDegreeDistance,StructackDistance
-from structack.structack import StructackEigenvectorCentrality, StructackBetweennessCentrality, StructackClosenessCentrality
-from structack.structack import StructackPageRank, StructackKatzSimilarity, StructackCommunity
+# from structack.structack import StructackDegreeRandomLinking, StructackDegree, StructackDegreeDistance,StructackDistance
+# from structack.structack import StructackEigenvectorCentrality, StructackBetweennessCentrality, StructackClosenessCentrality
+# from structack.structack import StructackPageRank, StructackKatzSimilarity, StructackCommunity
 import structack.node_selection as ns
 import structack.node_connection as nc
 # from structack.calc_unnoticeability import *
@@ -322,7 +322,7 @@ def calc_relative_diff(orig, mod, denominator_type, lala):
         return np.nan_to_num(np.abs((mod-orig)/denominator))
     
 def extend_row_with_noticeability(row, G_orig, degree_centralities_orig, ccoefs_orig, adj, modified_adj):
-    G_modified = nx.from_scipy_sparse_matrix(modified_adj)
+    G_modified = nx.from_scipy_sparse_matrix(to_scipy(modified_adj))
     degree_centralities_modified = np.array(list(nx.degree_centrality(G_modified).values()))
     ccoefs_modified = np.array(list(nx.clustering(G_modified, nodes=G_orig.nodes, weight=None).values()))
                     
